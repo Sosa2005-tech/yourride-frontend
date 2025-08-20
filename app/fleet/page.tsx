@@ -5,7 +5,7 @@ import { Vehicle } from "@/types"; // Import the shared type
 async function getVehicles() {
   // ... (the rest of the getVehicles function is the same)
   try {
-    const res = await fetch('https://yourride-guwahati-backend.onrender.com/api/vehicles', {
+    const res = await fetch('https://yourride-backend.onrender.com/api/vehicles', {
       cache: 'no-store'
     });
     if (!res.ok) {
