@@ -1,27 +1,25 @@
 // app/fleet/page.tsx
 import VehicleCard from "@/components/VehicleCard";
+import { Vehicle } from "@/types"; // Import the shared type
 
-// This function fetches data on the server
 async function getVehicles() {
+  // ... (the rest of the getVehicles function is the same)
   try {
-    // IMPORTANT: Use your live Render backend URL here
-    const res = await fetch('https://yourride-backend.onrender.com/api/vehicles', {
-      cache: 'no-store' // This ensures we always get the latest data
+    const res = await fetch('https://yourride-guwahati-backend.onrender.com/api/vehicles', {
+      cache: 'no-store'
     });
-
     if (!res.ok) {
       throw new Error('Failed to fetch vehicles');
     }
-
     return res.json();
   } catch (error) {
     console.error(error);
-    return []; // Return an empty array if there's an error
+    return [];
   }
 }
 
 export default async function FleetPage() {
-  const vehicles = await getVehicles();
+  const vehicles: Vehicle[] = await getVehicles(); // Use the Vehicle type here
 
   return (
     <main className="container mx-auto px-6 py-8">
@@ -31,7 +29,7 @@ export default async function FleetPage() {
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
-        {vehicles.map((vehicle: any) => (
+        {vehicles.map((vehicle) => ( // No more 'any' type!
           <VehicleCard key={vehicle._id} vehicle={vehicle} />
         ))}
       </div>
